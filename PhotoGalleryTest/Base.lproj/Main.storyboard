@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="PhotoGalleryTest" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7I3-U4-hlk">
+                                <rect key="frame" x="150" y="180" width="300" height="240"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="240" id="kLD-3L-j3n"/>
+                                    <constraint firstAttribute="width" constant="300" id="sDV-iZ-t8v"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="GFH-s2-qki" kind="embed" id="7t2-P0-dKQ"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="7I3-U4-hlk" secondAttribute="centerX" id="9OY-mM-uqu"/>
+                            <constraint firstAttribute="centerY" secondItem="7I3-U4-hlk" secondAttribute="centerY" id="EF0-80-Sba"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" id="TAU-vc-LKu"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1095" y="1090"/>
+        </scene>
+        <!--Photo Gallery View Controller-->
+        <scene sceneID="Sbl-8G-5ZB">
+            <objects>
+                <viewController id="GFH-s2-qki" customClass="PhotoGalleryViewController" customModule="PhotoGalleryTest" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="PPZ-ru-dii"/>
+                        <viewControllerLayoutGuide type="bottom" id="8yp-M3-nNr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="T6i-CY-uN2">
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="240"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WLo-Tk-AYw">
+                                <rect key="frame" x="0.0" y="0.0" width="300" height="240"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zIV-T5-e8Y" userLabel="Photo container">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="240"/>
+                                        <color key="backgroundColor" red="1" green="0.52631578950000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="240" id="kzT-RH-sPW"/>
+                                            <constraint firstAttribute="width" constant="600" id="qsg-ij-aV6"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="zIV-T5-e8Y" firstAttribute="leading" secondItem="WLo-Tk-AYw" secondAttribute="leading" id="hoY-F9-bNw"/>
+                                    <constraint firstAttribute="trailing" secondItem="zIV-T5-e8Y" secondAttribute="trailing" id="iFF-Rp-dhX"/>
+                                    <constraint firstAttribute="bottom" secondItem="zIV-T5-e8Y" secondAttribute="bottom" id="sSi-no-Vj6"/>
+                                    <constraint firstItem="zIV-T5-e8Y" firstAttribute="top" secondItem="WLo-Tk-AYw" secondAttribute="top" id="ukB-AZ-mWx"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="GFH-s2-qki" id="P5L-w3-wqA"/>
+                                </connections>
+                            </scrollView>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pZB-wL-Vs7" userLabel="Overlay container">
+                                <rect key="frame" x="0.0" y="0.0" width="300" height="240"/>
+                                <subviews>
+                                    <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="GFo-LZ-JW9">
+                                        <rect key="frame" x="131" y="195" width="39" height="37"/>
+                                    </pageControl>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottomMargin" secondItem="GFo-LZ-JW9" secondAttribute="bottom" id="FLY-Td-ts4"/>
+                                    <constraint firstAttribute="centerX" secondItem="GFo-LZ-JW9" secondAttribute="centerX" id="vrt-37-sOK"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="pZB-wL-Vs7" secondAttribute="trailing" id="0Bn-G4-rbd"/>
+                            <constraint firstItem="pZB-wL-Vs7" firstAttribute="leading" secondItem="T6i-CY-uN2" secondAttribute="leading" id="578-Ea-jbg"/>
+                            <constraint firstAttribute="trailing" secondItem="WLo-Tk-AYw" secondAttribute="trailing" id="77v-Ua-cAp"/>
+                            <constraint firstItem="WLo-Tk-AYw" firstAttribute="leading" secondItem="T6i-CY-uN2" secondAttribute="leading" id="ETr-Qk-kBj"/>
+                            <constraint firstItem="8yp-M3-nNr" firstAttribute="top" secondItem="pZB-wL-Vs7" secondAttribute="bottom" id="PAI-wu-Bct"/>
+                            <constraint firstItem="8yp-M3-nNr" firstAttribute="top" secondItem="WLo-Tk-AYw" secondAttribute="bottom" id="ky9-cn-din"/>
+                            <constraint firstItem="pZB-wL-Vs7" firstAttribute="top" secondItem="PPZ-ru-dii" secondAttribute="bottom" id="uVE-kY-QmX"/>
+                            <constraint firstItem="WLo-Tk-AYw" firstAttribute="top" secondItem="PPZ-ru-dii" secondAttribute="bottom" id="voJ-xb-kGw"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <connections>
+                        <outlet property="contentView" destination="zIV-T5-e8Y" id="R86-5I-X8x"/>
+                        <outlet property="contentViewWidthConstraint" destination="qsg-ij-aV6" id="WHx-Gf-iue"/>
+                        <outlet property="pageControl" destination="GFo-LZ-JW9" id="wcE-kd-i3U"/>
+                        <outlet property="scrollView" destination="WLo-Tk-AYw" id="FRn-Uk-MzC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uxX-Wd-Xp9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1830" y="1003"/>
+        </scene>
+    </scenes>
+</document>

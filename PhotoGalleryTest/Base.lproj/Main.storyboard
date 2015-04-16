@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6724" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6711"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -55,22 +55,6 @@
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WLo-Tk-AYw">
                                 <rect key="frame" x="0.0" y="0.0" width="300" height="240"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zIV-T5-e8Y" userLabel="Photo container">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="240"/>
-                                        <color key="backgroundColor" red="1" green="0.52631578950000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="240" id="kzT-RH-sPW"/>
-                                            <constraint firstAttribute="width" constant="600" id="qsg-ij-aV6"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="zIV-T5-e8Y" firstAttribute="leading" secondItem="WLo-Tk-AYw" secondAttribute="leading" id="hoY-F9-bNw"/>
-                                    <constraint firstAttribute="trailing" secondItem="zIV-T5-e8Y" secondAttribute="trailing" id="iFF-Rp-dhX"/>
-                                    <constraint firstAttribute="bottom" secondItem="zIV-T5-e8Y" secondAttribute="bottom" id="sSi-no-Vj6"/>
-                                    <constraint firstItem="zIV-T5-e8Y" firstAttribute="top" secondItem="WLo-Tk-AYw" secondAttribute="top" id="ukB-AZ-mWx"/>
-                                </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="GFH-s2-qki" id="P5L-w3-wqA"/>
                                 </connections>
@@ -102,8 +86,6 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <connections>
-                        <outlet property="contentView" destination="zIV-T5-e8Y" id="R86-5I-X8x"/>
-                        <outlet property="contentViewWidthConstraint" destination="qsg-ij-aV6" id="WHx-Gf-iue"/>
                         <outlet property="pageControl" destination="GFo-LZ-JW9" id="wcE-kd-i3U"/>
                         <outlet property="scrollView" destination="WLo-Tk-AYw" id="FRn-Uk-MzC"/>
                     </connections>

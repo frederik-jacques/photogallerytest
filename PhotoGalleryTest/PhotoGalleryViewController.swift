@@ -14,8 +14,6 @@ class PhotoGalleryViewController: UIViewController,
 
     // MARK: - IBOutlets
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var contentView: UIView!
-    @IBOutlet weak var contentViewWidthConstraint: NSLayoutConstraint! // this one defines the contentsize of the scrollview
     @IBOutlet weak var pageControl: UIPageControl!
     
     // MARK: - Properties
@@ -47,76 +45,26 @@ class PhotoGalleryViewController: UIViewController,
         
         super.viewDidLoad()
         
-        contentView.setTranslatesAutoresizingMaskIntoConstraints(false)
+		// not needed since the contentView is created in the storyboard
+//        contentView.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         // Add images to the scrollview
         addImagesToScrollView()
+		// We can do this in viewDidLoad since the number of images is fixed. Put this in an accessor method if the images are dynamic.
+		setupConstraints()
         
         // Update page control, so the amount of dots reflect the amount of pictures in the gallery
         pageControl.numberOfPages = images.count
         
     }
-    
+	
+	
     override func didReceiveMemoryWarning() {
 
         super.didReceiveMemoryWarning()
 
     }
-    
-    override func viewWillLayoutSubviews() {
-        
-        super.viewWillLayoutSubviews()
-        
-        let currentWidth = view.bounds.size.width
-        let currentHeight = view.bounds.size.height
-        
-        // Remove old constraints, except for the constraint which determines the width of the contentview
-        for constraint in contentView.constraints() as! [NSLayoutConstraint] {
-            
-            if constraint !== contentViewWidthConstraint {
-                
-                contentView.removeConstraint(constraint)
-                
-            }
-            
-        }
-        
-        // Calculate the offset for every image in the contentview, so they get next to eachother
-        var offsetX = CGFloat(0)
-        
-        for imageView in contentView.subviews as! [UIImageView] {
-            
-            let hConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
-                "H:|-offset-[imageView(width)]",
-                options: NSLayoutFormatOptions(0),
-                metrics: [
-                    "width":currentWidth,
-                    "offset":offsetX
-                ],
-                views: ["imageView":imageView]
-            )
-            
-            let vConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
-                "V:|[imageView(height)]|",
-                options: NSLayoutFormatOptions(0),
-                metrics: ["height":currentHeight],
-                views: ["imageView":imageView]
-            )
-            
-            contentView.addConstraints(hConstraints)
-            contentView.addConstraints(vConstraints)
-            
-            offsetX += currentWidth
-            
-        }
-        
-        // Update the constraint which defines the width of the contentsize of the scrollview
-        contentViewWidthConstraint.constant = offsetX
-        
-        // When the devices gets rotated, we want to calculate the right offset, so the scrollview is at the same position after the rotation
-        scrollView.contentOffset = calculateScrollViewOffset()
-        
-    }
+	
     
     // MARK: - Private functions
     private func addImagesToScrollView(){
@@ -128,11 +76,84 @@ class PhotoGalleryViewController: UIViewController,
             imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
             imageView.clipsToBounds = true
             imageView.contentMode = UIViewContentMode.Center
-            contentView.addSubview(imageView)
+            scrollView.addSubview(imageView)
         
         }
         
     }
+	
+	
+	private func setupConstraints() {
+		
+		let currentWidth = scrollView.bounds.size.width
+		let currentHeight = scrollView.bounds.size.height
+		
+		var offsetX = CGFloat(0)
+		
+		var previousImageView: UIImageView!
+		
+		// remark: subviews might not be in the order you expect, so this is not a reliable way to do this!
+		let subviews = scrollView.subviews
+		
+		for (index, imageView) in enumerate(subviews) {
+			
+			var hConstraints: NSArray
+			var vConstraints: NSArray
+			
+			if previousImageView == nil {
+				hConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
+					"H:|-offset-[imageView(width)]",
+					options: NSLayoutFormatOptions(0),
+					metrics: [
+						"width":currentWidth,
+						"offset":offsetX
+					],
+					views: ["imageView":imageView]
+				)
+			} else {
+				hConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
+					"H:[previousImageView]-offset-[imageView(width)]",
+					options: NSLayoutFormatOptions(0),
+					metrics: [
+						"width":currentWidth,
+						"offset":offsetX
+					],
+					views: ["imageView":imageView, "previousImageView": previousImageView]
+				)
+			}
+			
+			previousImageView = imageView as! UIImageView
+			
+			scrollView.addConstraints(hConstraints as [AnyObject])
+			
+			// last imageView
+			if index == subviews.count - 1 {
+				hConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
+					"H:[imageView]-offset-|",
+					options: NSLayoutFormatOptions(0),
+					metrics: [
+						"offset":offsetX
+					],
+					views: ["imageView":imageView]
+				)
+				scrollView.addConstraints(hConstraints as [AnyObject])
+			}
+			
+			
+			// vertical
+			vConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
+				"V:|-0-[imageView(height)]-0-|",
+				options: NSLayoutFormatOptions(0),
+				metrics: [
+					"height":currentHeight,
+				],
+				views: ["imageView": imageView]
+			)
+			
+			scrollView.addConstraints(vConstraints as [AnyObject])
+		}
+	}
+	
     
     private func calculateScrollViewOffset() -> CGPoint{
     
@@ -144,7 +165,7 @@ class PhotoGalleryViewController: UIViewController,
     // MARK: - Public functions
     
     // MARK: - Getter & setter functions
-    
+	
     // MARK: - IBActions
     
     // MARK: - Target-Action functions
